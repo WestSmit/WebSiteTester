@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Pages";
+}
+
+@model IEnumerable<WebSiteTester.BLL.Dtos.TestItemDto>
+
+@{
+    if (Model != null)
+    {
+        <ul class="list-group">
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item justify-content-between">
+                    <span class="h5">@item.Url</span>
+                    <a class="btn btn-primary float-right" href="Results?id=@item.Id">Show test results</a>
+                </li>
+            }
+        </ul>
+    }
+}

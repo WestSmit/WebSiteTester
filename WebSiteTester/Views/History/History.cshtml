@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<WebSiteTester.BLL.Dtos.TestDto>
+
+@{ 
+    if (Model != null)
+    {
+        <ul class="list-group">
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item">
+                    <div class="h3">@item.Url</div>
+                    <div>ID: @item.Id</div>
+                    <div>@item.Pages.Count pages</div>
+                    <a class="btn btn-primary" href="History/Pages?Id=@item.Id">Show Pages</a>
+                </li>
+            }            
+        </ul>
+    }
+}
