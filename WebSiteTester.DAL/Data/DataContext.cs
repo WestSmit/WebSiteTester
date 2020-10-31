@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using WebSiteTester.DAL.Models;
+using WebSiteTester.DAL.Entities;
 
 namespace WebSiteTester.DAL.Data
 {

@@ -3,16 +3,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 
 using WebSiteTester.BLL.Dtos;
-using WebSiteTester.BLL.Models;
 using WebSiteTester.BLL.Services.Interfaces;
 
-using WebSiteTester.DAL.Models;
-using WebSiteTester.DAL.Repositories;
+using WebSiteTester.DAL.Entities;
 using WebSiteTester.DAL.Repositories.Interfaces;
 
 namespace WebSiteTester.BLL.Services

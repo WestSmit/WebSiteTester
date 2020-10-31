@@ -28,15 +28,6 @@ namespace WebSiteTester.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Example(string url)
-        {
-            if (string.IsNullOrEmpty(url))
-            {
-                return View();
-            }
-            return await this.Start(url);
-        }
-
         [HttpGet]
         public async Task<ActionResult> Start(string Url)
         {
@@ -82,13 +73,13 @@ namespace WebSiteTester.Controllers
                 var ordered = results;
                 ordered.Pages = ordered.Pages.OrderBy(p => p.Results.Last().ResponseTime).Reverse().ToList();
 
-                return View("Index", ordered);
+                return PartialView("TestResult", ordered);
             }
             catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;
 
-                return View("Index");
+                return PartialView("TestResult");
             }
         }
 

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WebSiteTester.DAL.Models
+namespace WebSiteTester.DAL.Entities
 {
     public class TestResult
     {

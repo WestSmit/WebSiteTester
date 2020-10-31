@@ -22,7 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
 .chart {
     height: 400px;
 }
 
+input[type="submit"]:disabled {
+    background-color: lightgray !important;
+}

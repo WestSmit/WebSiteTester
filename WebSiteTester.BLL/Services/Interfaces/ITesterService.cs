@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using WebSiteTester.BLL.Dtos;
-using WebSiteTester.BLL.Models;
 
 namespace WebSiteTester.BLL.Services.Interfaces
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebSiteTester.DAL.Models;
+﻿using WebSiteTester.DAL.Entities;
 using WebSiteTester.BLL.Dtos;
 
 using AutoMapper;

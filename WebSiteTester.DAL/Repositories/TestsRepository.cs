@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using WebSiteTester.DAL.Data;
-using WebSiteTester.DAL.Models;
+using WebSiteTester.DAL.Entities;
 using WebSiteTester.DAL.Repositories.Interfaces;
 
 namespace WebSiteTester.DAL.Repositories
