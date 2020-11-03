@@ -100,12 +100,19 @@ namespace WebSiteTester.BLL.Services
 
         public async Task<TestDto> TestAllPages(string baseUrl)
         {
-            var urls = await GetPages(baseUrl);
+            var siteUrl = baseUrl;
+
+            if (siteUrl.Last() != '/')
+            {
+                siteUrl = siteUrl + '/';
+            }
+
+            var urls = await GetPages(siteUrl);
 
             var result = new TestDto();
             foreach (var item in urls)
             {
-                result = await TestPage(baseUrl, item);
+                result = await TestPage(siteUrl, item);
             }
 
             return result;
