@@ -42,16 +42,16 @@ namespace WebSiteTester.Controllers
                     {
                         Labels = results.Pages.Select(x => x.Id.ToString()).ToArray(),
                         Datasets = new BarDataSets[]
-                                    {
-                                      new BarDataSets()
-                                      {
-                                          Label = "Response Time (ms)",
-                                          BackgroundColor = "rgb(89, 207, 240)",
-                                          BorderColor = "rgb(187, 89, 240)",
-                                          BorderWidth = 0,
-                                          LinearData = results.Pages.Select(x => (int)Math.Round(x.Results.Last().ResponseTime)).ToArray()
-                                      }
-                                    }
+                        {
+                            new BarDataSets()
+                            {
+                                Label = "Response Time (ms)",
+                                BackgroundColor = "rgb(89, 207, 240)",
+                                BorderColor = "rgb(187, 89, 240)",
+                                BorderWidth = 0,
+                                LinearData = results.Pages.Select(x => (int)Math.Round(x.Results.Last().ResponseTime)).ToArray()
+                            }
+                        }
                     },
                     Options = new BarOptions()
                     {

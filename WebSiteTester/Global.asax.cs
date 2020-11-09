@@ -27,7 +27,7 @@ namespace WebSiteTester
 
             // DI
             NinjectModule services = new NinjectRegistrations();
-            NinjectModule data = new NinjectDataRegistration("DefaultConnection");
+            NinjectModule data = new NinjectDataRegistration("DataContext");
 
             var kernel = new StandardKernel(services, data);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));

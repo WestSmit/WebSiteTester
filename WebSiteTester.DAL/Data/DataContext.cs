@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 
 using WebSiteTester.DAL.Entities;
 
@@ -16,6 +11,21 @@ namespace WebSiteTester.DAL.Data
 
         public DataContext(string connectionString) : base(connectionString)
         {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TestedSite>().HasMany(c => c.Pages);
+
+            modelBuilder.Entity<TestedSite>().HasIndex(s => s.Url).IsUnique(true);
+
+            modelBuilder.Entity<TestedSite>().Property(p => p.Url).HasMaxLength(150);
+
+            modelBuilder.Entity<TestedPage>().HasMany(c => c.Results);
+
+            modelBuilder.Entity<TestedPage>().HasIndex(c => c.Url).IsUnique(true);
+
+            modelBuilder.Entity<TestedPage>().Property(p => p.Url).HasMaxLength(150);
         }
     }
 }

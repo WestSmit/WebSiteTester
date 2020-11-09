@@ -8,11 +8,13 @@ namespace WebSiteTester.DAL.Repositories.Interfaces
 {
     public interface ITestsRepository
     {
-        TestedSite GetTestedSite(string baseUrl);
+        Task<TestedSite> GetTestedSiteAsync(string baseUrl);
         IQueryable<TestedSite> GetTestedSites();
-        Task<bool> SaveAll();
-        void AddTest(TestedSite site);
+        Task<bool> SaveAllAsync();
+        void AddTestedSite(TestedSite site);
         IQueryable<TestedPage> GetTestedPages(int siteId);
         IEnumerable<TestResult> GetTestResults(int pageId);
+        void AddTestedPage(TestedPage page);
+        void Update<T>(T item);
     }
 }

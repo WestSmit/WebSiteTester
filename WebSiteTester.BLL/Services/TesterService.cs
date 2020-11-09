@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 using WebSiteTester.BLL.Dtos;
@@ -53,49 +54,38 @@ namespace WebSiteTester.BLL.Services
             return urls;
         }
 
-        public async Task<TestDto> TestPage(string baseUrl, string url)
+        public async Task TestPage(string siteUrl, string url)
         {
-            var site = repo.GetTestedSite(baseUrl);
-            if (site == null)
-            {
-                site = new TestedSite();
-                site.Url = baseUrl;
-                site.Pages = new List<TestedPage>();
-                repo.AddTest(site);
-                if (!await repo.SaveAll())
-                {
-                    throw new Exception("Save error");
-                }
-            }
+            var responseTime = responseTimeTester.Test(url);
+
+            var site = await repo.GetTestedSiteAsync(siteUrl);
 
             var page = site.Pages.SingleOrDefault(item => item.Url == url);
 
             if (page == null)
             {
-                var newPage = new TestedPage();
-                newPage.Site = site;
-                newPage.Url = url;
+                page = new TestedPage
+                {
+                    Url = url,
+                    Site = site,
+                    Results = new List<TestResult>()
+                };
 
-                var responseTime = responseTimeTester.Test(url);
-                newPage.Results = new List<TestResult>();
-                newPage.Results.Add(new TestResult() { ResponseTime = responseTimeTester.Test(url), Page = newPage });
+                repo.AddTestedPage(page);
 
-                site.Pages.Add(newPage);
-                if (!await repo.SaveAll())
+                if (!await repo.SaveAllAsync())
                 {
                     throw new Exception("Save error");
                 }
             }
-            else
+
+            page.Results.Add(new TestResult(responseTime, page));
+            repo.Update(page);
+
+            if (!await repo.SaveAllAsync())
             {
-                page.Results.Add((new TestResult() { ResponseTime = responseTimeTester.Test(url), Page = page }));
-                if (!await repo.SaveAll())
-                {
-                    throw new Exception("Save error");
-                }
+                throw new Exception("Save error");
             }
-
-            return mapper.Map<TestDto>(site);
         }
 
         public async Task<TestDto> TestAllPages(string baseUrl)
@@ -109,13 +99,30 @@ namespace WebSiteTester.BLL.Services
 
             var urls = await GetPages(siteUrl);
 
-            var result = new TestDto();
-            foreach (var item in urls)
+            var site = await repo.GetTestedSiteAsync(siteUrl);
+
+            if (site == null)
             {
-                result = await TestPage(siteUrl, item);
+                site = new TestedSite
+                {
+                    Url = siteUrl,
+                    Pages = new List<TestedPage>()
+                };
+
+                repo.AddTestedSite(site);
+
+                if (!await repo.SaveAllAsync())
+                {
+                    throw new Exception("Save error");
+                }
             }
 
-            return result;
+            foreach (var item in urls)
+            {
+                await TestPage(site.Url, item);
+            }
+
+            return mapper.Map<TestDto>(site);
         }
 
         public IEnumerable<TestDto> GetTestedSites()
